@@ -5,16 +5,20 @@ import (
 	"strings"
 )
 
-// DeleteContentByIds deletes the content elements whose IDs were passed
-func (dal *DataAccessLayer) DeleteContentByIds(ids []int64) error {
-	query := `DELETE FROM tt_content WHERE uid IN (%s)`
-	placeholders := make([]string, len(ids))
-	args := make([]interface{}, len(ids))
-	for i := 0; i < len(ids); i++ {
-		placeholders[i] = "?"
-		args[i] = ids[i]
+func (dal *DataAccessLayer) Upsert(tableName string, columns []string, values []interface{}) error {
+	query := "INSERT INTO `%s` (%s) VALUES (%s) ON DUPLICATE KEY UPDATE %s"
+	cols := "`" + strings.Join(columns, "`,`") + "`"
+	insertPlaceholders := strings.Join(placeholderList(len(values)), ",")
+	updatePlaceholders := strings.Join(updateStmtList(columns), ", ")
+	query = fmt.Sprintf(query, tableName, cols, insertPlaceholders, updatePlaceholders)
+	valCount := len(values)
+	duplicateValues := make([]interface{}, valCount*2)
+	for i, v := range values {
+		duplicateValues[i] = v
+		duplicateValues[valCount+i] = v
 	}
-	query = fmt.Sprintf(query, strings.Join(placeholders, ","))
-	_, err := dal.db.Exec(query, args...)
-	return err
+	if _, err := dal.db.Exec(query, duplicateValues...); err != nil {
+		return err
+	}
+	return nil
 }

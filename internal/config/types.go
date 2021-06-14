@@ -7,8 +7,3 @@ type MySQLConfig struct {
 	Port     int
 	Database string
 }
-
-type Config struct {
-	Source MySQLConfig
-	Target MySQLConfig
-}

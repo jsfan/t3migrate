@@ -8,8 +8,10 @@ import (
 type DAL interface {
 	Connect(config *config.MySQLConfig) error
 
-	SelectContentElementsNotInList(ids []int64) ([]*model.ContentElement, error)
-	SelectPages() ([]*model.TVFlex, error)
+	CountAll(tableName string, columns []string, includedIds []int64) (int64, error)
+	DescribeTable(tableName string) ([]*model.TableDescription, error)
+	SelectAll(tableName string, columns []string, offset, limit *int64, includedIds []int64) ([][]interface{}, error)
+	SelectTVFlexFromPages() ([]*model.TVFlex, error)
 
-	DeleteContentByIds(ids []int64) error
+	Upsert(tableName string, columns []string, values []interface{}) error
 }

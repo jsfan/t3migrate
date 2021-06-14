@@ -1,0 +1,11 @@
+databases:
+  source:
+    user: root
+    password: root
+    host: localhost
+    database: sourcedb
+  destination:
+    user: root
+    password: root
+    host: localhost
+    database: destinationdb
