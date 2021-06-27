@@ -30,7 +30,7 @@ import (
 )
 
 var tableList []string
-var mapFile *string
+var mapFile, tables *string
 var writeMappings *bool
 
 // copyCmd represents the copy command
@@ -39,6 +39,10 @@ var copyCmd = &cobra.Command{
 	Short: "Copy data filtering everything that isn't used or deleted.",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
+		tableList = strings.Split(*tables, ",")
+		for i, t := range tableList {
+			tableList[i] = strings.Trim(t, " \t")
+		}
 		if *writeMappings {
 			for _, t := range tableList {
 				srcMap, err := srcStore.MapTable(t)
@@ -83,6 +87,7 @@ var copyCmd = &cobra.Command{
 			if err != nil {
 				cobra.CheckErr(fmt.Errorf(`could not count records for table "%s": %+v`, t, err))
 			}
+			fmt.Printf("Copying table %s which has %d records.\n", t, count)
 			limit := int64(1000)
 			var i int64
 			for i = 0; i < (count/limit + 1); i++ {
@@ -101,12 +106,7 @@ var copyCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(copyCmd)
-	var tables string
-	copyCmd.PersistentFlags().StringVar(&tables, "tables", "pages,tt_content", "Tables to copy")
-	tableList = strings.Split(tables, ",")
-	for i, t := range tableList {
-		tableList[i] = strings.Trim(t, " \t")
-	}
-	mapFile = copyCmd.PersistentFlags().String("mappingFile", "./mapping.yaml", "Mapping file")
-	writeMappings = copyCmd.PersistentFlags().BoolP("write", "w", false, "Write mapping file")
+	tables = copyCmd.Flags().String("tables", "pages,tt_content", "Tables to copy")
+	mapFile = copyCmd.Flags().String("mappingFile", "./mapping.yaml", "Mapping file")
+	writeMappings = copyCmd.Flags().BoolP("write", "w", false, "Write mapping file")
 }
