@@ -13,3 +13,6 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# if there is an actual config file, ignore it.
+**/t3migrate.yaml
