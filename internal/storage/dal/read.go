@@ -3,9 +3,10 @@ package dal
 import (
 	"database/sql"
 	"fmt"
-	"github.com/jsfan/t3migrate/internal/storage/model"
 	"strconv"
 	"strings"
+
+	"github.com/jsfan/t3migrate/internal/storage/model"
 )
 
 // DescribeTable describes a table to enable mapping

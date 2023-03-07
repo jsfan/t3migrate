@@ -2,9 +2,10 @@ package mapping
 
 import (
 	"errors"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
+
+	"gopkg.in/yaml.v2"
 )
 
 type ColumnMapping map[string]*string

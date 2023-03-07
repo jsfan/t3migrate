@@ -2,10 +2,11 @@ package mapping
 
 import (
 	"fmt"
-	"github.com/jsfan/t3migrate/internal/storage/model"
-	"github.com/spf13/cobra"
 	"os"
 	"regexp"
+
+	"github.com/jsfan/t3migrate/internal/storage/model"
+	"github.com/spf13/cobra"
 )
 
 func MapSrcToDstCols(srcDesc, dstDesc map[string]*model.TableDescription) (ColumnMapping, []string, error) {

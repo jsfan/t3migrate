@@ -3,6 +3,7 @@ package dal
 import (
 	"database/sql"
 	"fmt"
+
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jsfan/t3migrate/internal/config"
 )

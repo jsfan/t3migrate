@@ -2,10 +2,11 @@ package storage
 
 import (
 	"fmt"
-	"github.com/jsfan/t3migrate/internal/xml"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/jsfan/t3migrate/internal/xml"
 )
 
 func (store *Store) FindUsedElements() ([]int64, error) {

@@ -23,10 +23,11 @@ package sub
 
 import (
 	"fmt"
-	"github.com/jsfan/t3migrate/internal/mapping"
-	"github.com/spf13/cobra"
 	"os"
 	"strings"
+
+	"github.com/jsfan/t3migrate/internal/mapping"
+	"github.com/spf13/cobra"
 )
 
 var tableList []string
@@ -68,7 +69,7 @@ var copyCmd = &cobra.Command{
 		}
 		mapped, err := mapping.LoadMappings(*mapFile)
 		if err != nil {
-			cobra.CheckErr(fmt.Errorf(`could not load column mappings rom file "%s": %+v`, *mapFile, err))
+			cobra.CheckErr(fmt.Errorf(`could not load column mappings from file "%s": %+v`, *mapFile, err))
 		}
 		for _, t := range tableList {
 			var includeList []int64

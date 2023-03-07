@@ -23,10 +23,11 @@ package sub
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/jsfan/t3migrate/internal/config"
 	"github.com/jsfan/t3migrate/internal/storage"
 	"github.com/spf13/cobra"
-	"os"
 
 	"github.com/spf13/viper"
 )
@@ -41,7 +42,7 @@ var rootCmd = &cobra.Command{
 	Use:   "t3migrate",
 	Short: "Selectively migrates TYPO3 data from one database to another",
 	Long: `This utility is used to copy important data from an existing TYPO3
-database to a new (empty) TYPO3 database. It can be used for rebuildign a TYPO3
+database to a new (empty) TYPO3 database. It can be used for rebuilding a TYPO3
 from scratch on a different version.`,
 }
 
