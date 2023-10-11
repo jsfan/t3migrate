@@ -9,6 +9,6 @@ require (
 	github.com/spf13/afero v1.9.5 // indirect
 	github.com/spf13/cobra v1.6.1
 	github.com/spf13/viper v1.15.0
-	golang.org/x/net v0.8.0
+	golang.org/x/net v0.17.0
 	gopkg.in/yaml.v2 v2.4.0
 )
